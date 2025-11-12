@@ -1,5 +1,5 @@
 [project]
-name = "ha-mwpwik-wroclaw"
+name = "mpwik-wroclaw-client"
 version = "0.1.0"
 description = "Python client for MPWiK Wrocław water consumption API"
 readme = "README.md"
@@ -39,9 +39,9 @@ playwright = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/neutrinus/ha-mwpwik-wroclaw"
-Repository = "https://github.com/neutrinus/ha-mwpwik-wroclaw"
-Issues = "https://github.com/neutrinus/ha-mwpwik-wroclaw/issues"
+Homepage = "https://github.com/neutrinus/mpwik-wroclaw-client"
+Repository = "https://github.com/neutrinus/mpwik-wroclaw-client"
+Issues = "https://github.com/neutrinus/mpwik-wroclaw-client/issues"
 
 [project.scripts]
 mpwik-client = "mpwik_client:main"

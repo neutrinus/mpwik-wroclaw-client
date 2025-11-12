@@ -39,6 +39,10 @@ ENV/
 *.log
 *.csv
 
+# But allow integration JSON files
+!custom_components/**/*.json
+!hacs.json
+
 # Sensitive data
 config.ini
 .env

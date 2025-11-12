@@ -1,0 +1,30 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "MPWiK Wrocław",
+        "description": "Set up your MPWiK Wrocław water consumption monitoring. You will need your login credentials and a running Selenium Standalone Chrome add-on.",
+        "data": {
+          "username": "Login (podmiot ID)",
+          "password": "Password",
+          "selenium_host": "Selenium Host",
+          "punkt_sieci": "Network Point ID (punkt sieci)"
+        },
+        "data_description": {
+          "username": "Your MPWiK login (podmiot ID)",
+          "password": "Your MPWiK password",
+          "selenium_host": "Hostname or IP of the Selenium Standalone Chrome add-on",
+          "punkt_sieci": "Your water meter network point ID"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to Selenium WebDriver. Make sure the Selenium Standalone Chrome add-on is installed and running.",
+      "invalid_auth": "Invalid authentication. Check your login, password, and network point ID.",
+      "unknown": "Unexpected error occurred. Check the logs for details."
+    },
+    "abort": {
+      "already_configured": "This account is already configured."
+    }
+  }
+}

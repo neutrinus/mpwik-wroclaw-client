@@ -1,0 +1,54 @@
+[project]
+name = "ha-mwpwik-wroclaw"
+version = "0.1.0"
+description = "Python client for MPWiK Wrocław water consumption API"
+readme = "README.md"
+requires-python = ">=3.10,<3.14"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "neutrinus", email = "1677760+neutrinus@users.noreply.github.com" }
+]
+keywords = ["home-assistant", "mpwik", "wroclaw", "water", "consumption", "api"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+dependencies = [
+    "requests>=2.31.0",
+]
+
+[project.optional-dependencies]
+capmonster = [
+    "capmonstercloudclient>=3.3.0",
+]
+selenium = [
+    "selenium>=4.0.0",
+    "webdriver-manager>=4.0.0",
+    "capmonstercloudclient>=3.3.0",
+]
+playwright = [
+    "playwright>=1.40.0",
+
+]
+
+[project.urls]
+Homepage = "https://github.com/neutrinus/ha-mwpwik-wroclaw"
+Repository = "https://github.com/neutrinus/ha-mwpwik-wroclaw"
+Issues = "https://github.com/neutrinus/ha-mwpwik-wroclaw/issues"
+
+[project.scripts]
+mpwik-client = "mpwik_client:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["mpwik_client.py"]

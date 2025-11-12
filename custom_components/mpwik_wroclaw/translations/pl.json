@@ -1,0 +1,30 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "MPWiK Wrocław",
+        "description": "Skonfiguruj monitorowanie zużycia wody z MPWiK Wrocław. Potrzebujesz danych logowania oraz działającego dodatku Selenium Standalone Chrome.",
+        "data": {
+          "username": "Login (ID podmiotu)",
+          "password": "Hasło",
+          "selenium_host": "Host Selenium",
+          "punkt_sieci": "ID punktu sieci (punkt sieci)"
+        },
+        "data_description": {
+          "username": "Twój login do MPWiK (ID podmiotu)",
+          "password": "Twoje hasło do MPWiK",
+          "selenium_host": "Nazwa hosta lub IP dodatku Selenium Standalone Chrome",
+          "punkt_sieci": "ID punktu sieci twojego licznika wody"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Nie udało się połączyć z Selenium WebDriver. Upewnij się, że dodatek Selenium Standalone Chrome jest zainstalowany i uruchomiony.",
+      "invalid_auth": "Nieprawidłowe uwierzytelnienie. Sprawdź login, hasło i ID punktu sieci.",
+      "unknown": "Wystąpił nieoczekiwany błąd. Sprawdź logi aby uzyskać więcej informacji."
+    },
+    "abort": {
+      "already_configured": "To konto jest już skonfigurowane."
+    }
+  }
+}

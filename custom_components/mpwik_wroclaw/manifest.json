@@ -1,0 +1,12 @@
+{
+  "domain": "mpwik_wroclaw",
+  "name": "MPWiK Wrocław",
+  "version": "0.1.0",
+  "codeowners": ["@neutrinus"],
+  "config_flow": true,
+  "documentation": "https://github.com/neutrinus/mpwik-wroclaw-client",
+  "issue_tracker": "https://github.com/neutrinus/mpwik-wroclaw-client/issues",
+  "iot_class": "cloud_polling",
+  "requirements": ["selenium==4.15.2"],
+  "dependencies": []
+}

@@ -1,17 +1,129 @@
 # MPWiK Wrocław - Water Consumption Data Fetcher
 
-Python script to fetch water consumption data from MPWiK Wrocław e-BOK system for Home Assistant integration.
+Python client for fetching water consumption data from MPWiK Wrocław e-BOK system. Can be used as a standalone script or as a Home Assistant HACS integration.
 
 ## Features
 
+- 🏠 **Home Assistant HACS Integration** - Easy integration with Home Assistant
 - 🔐 Authentication with MPWiK Wrocław API
 - 📊 Fetch daily water consumption readings
 - ⏰ Fetch hourly water consumption readings
 - 📁 Export data to JSON format
-- 🖥️ Command-line interface
+- 🖥️ Command-line interface for standalone usage
 - 🌐 **Browser automation mode** to handle reCAPTCHA and debug issues
 
-## Installation
+## Home Assistant Integration (HACS)
+
+### Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                      Home Assistant                         │
+│                                                             │
+│  ┌───────────────────────────────────────────────────────┐ │
+│  │     HACS Integration (custom_components/mpwik_wroclaw)│ │
+│  │                                                         │ │
+│  │  • Config Flow (UI Configuration)                     │ │
+│  │  • Data Coordinator (Updates every 12h + random)      │ │
+│  │  • Sensors:                                           │ │
+│  │    - Daily Consumption                                │ │
+│  │    - Hourly Consumption                               │ │
+│  │    - Total Consumption                                │ │
+│  │    - Last Reading Timestamp                           │ │
+│  └────────────────┬────────────────────────────────────────┘ │
+│                   │                                          │
+│                   │ HTTP (selenium==4.15.2)                  │
+└───────────────────┼──────────────────────────────────────────┘
+                    │
+                    ▼
+┌─────────────────────────────────────────────────────────────┐
+│         Selenium Standalone Chrome Add-on                   │
+│         (runs Chrome browser)                               │
+└────────────────┬────────────────────────────────────────────┘
+                 │
+                 │ Automates web browser
+                 ▼
+┌─────────────────────────────────────────────────────────────┐
+│              MPWiK Wrocław Website                          │
+│              (https://ebok.mpwik.wroc.pl)                   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Installation
+
+1. **Install Selenium Standalone Chrome Add-on**
+   
+   First, install the Selenium Standalone Chrome add-on in Home Assistant:
+   - Go to **Settings** → **Add-ons** → **Add-on Store**
+   - Add the repository: `https://github.com/jaredhobbs/ha-addons`
+   - Install **Selenium Standalone Chrome**
+   - Start the add-on and ensure it's running
+
+2. **Install via HACS**
+   
+   - Go to **HACS** → **Integrations**
+   - Click the three dots in the top right corner
+   - Select **Custom repositories**
+   - Add this repository URL: `https://github.com/neutrinus/mpwik-wroclaw-client`
+   - Category: **Integration**
+   - Click **Add**
+   - Search for "MPWiK Wrocław" and install it
+   - Restart Home Assistant
+
+3. **Configure the Integration**
+   
+   - Go to **Settings** → **Devices & Services**
+   - Click **Add Integration**
+   - Search for "MPWiK Wrocław"
+   - Enter your credentials:
+     - **Login**: Your MPWiK login (podmiot ID)
+     - **Password**: Your MPWiK password
+     - **Selenium Host**: `5f203b37-selenium-standalone-chrome` (default)
+     - **Network Point ID**: Your water meter punkt sieci ID
+   - Click **Submit**
+
+### Configuration
+
+The integration is configured through the Home Assistant UI. You'll need:
+
+- **Login (podmiot ID)**: Your MPWiK account login
+- **Password**: Your MPWiK account password
+- **Selenium Host**: Hostname of the Selenium add-on (default: `5f203b37-selenium-standalone-chrome`)
+- **Punkt Sieci**: Your water meter network point ID
+
+To find your network point ID, you can use the standalone script (see below) with the `--list-punkty-sieci` option.
+
+### Available Sensors
+
+The integration creates the following sensors:
+
+| Sensor | Description | Device Class | State Class | Unit |
+|--------|-------------|--------------|-------------|------|
+| **Daily Consumption** | Water consumption for the latest day | water | measurement | m³ |
+| **Hourly Consumption** | Latest hourly water consumption | water | measurement | m³ |
+| **Total Consumption** | Total meter reading (cumulative) | water | total_increasing | m³ |
+| **Last Reading** | Timestamp of the last meter reading | timestamp | - | - |
+
+### Update Frequency
+
+The integration updates data every **12 hours** with a **random offset of 0-30 minutes** added to prevent all instances from querying the MPWiK servers simultaneously. This helps avoid overwhelming the MPWiK infrastructure.
+
+### Troubleshooting
+
+If the integration fails to set up:
+
+1. **Check Selenium Add-on**: Ensure the Selenium Standalone Chrome add-on is running
+2. **Check Credentials**: Verify your login, password, and punkt sieci ID
+3. **Check Logs**: Look at Home Assistant logs for detailed error messages
+4. **Test Manually**: Use the standalone script to verify credentials work
+
+---
+
+## Standalone Installation
+
+## Standalone Installation
+
+For standalone/manual usage (without Home Assistant):
 
 1. Clone this repository:
 ```bash
@@ -37,7 +149,7 @@ uv sync
 
 > **Note**: If you use `uv sync`, you must run the script with `uv run python mpwik_client.py` or activate the virtual environment first with `source .venv/bin/activate` (Linux/Mac) or `.venv\Scripts\activate` (Windows).
 
-## Usage
+## Standalone Usage
 
 The script supports three connection methods:
 1. **`direct`**: Uses the `requests` library to directly call the backend API. This is the most lightweight method but may be blocked by reCAPTCHA on the login page.

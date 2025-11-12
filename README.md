@@ -15,8 +15,8 @@ Python script to fetch water consumption data from MPWiK Wrocław e-BOK system f
 
 1. Clone this repository:
 ```bash
-git clone https://github.com/neutrinus/ha-mwpwik-wroclaw.git
-cd ha-mwpwik-wroclaw
+git clone https://github.com/neutrinus/mpwik-wroclaw-client.git
+cd mpwik-wroclaw-client
 ```
 
 2. Install dependencies using uv:
